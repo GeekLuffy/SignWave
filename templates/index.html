@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #91C788;
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            background-color: #7BB661;
+            padding: 20px; /* Increased padding for the navbar */
+            color: white;
+            text-align: center;
+        }
+        .navbar a {
+            color: white;
+            margin: 0 15px; /* Increased margin for the menu items */
+            text-decoration: none;
+            font-size: 18px; /* Increased font size for the menu items */
+        }
+        .main-content {
+            background-color: #2E8540;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .main-content input[type="text"] {
+            width: 70%; /* Increased width for the input box */
+            padding: 10px; /* Added padding for better aesthetics */
+            font-size: 16px; /* Adjusted font size for the input box text */
+            border-radius: 8px; /* Added border-radius for rounded corners */
+        }
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+            margin: 10px auto; /* Increased margin for the button */
+            cursor: pointer;
+            border-radius: 8px; /* Added border-radius for rounded corners */
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        #image-container {
+            margin-top: 20px;
+        }
+        .logo {
+            display: inline-block;
+            margin-right: 10px; /* Adjust margin as needed */
+        }
+        .navbar h1 {
+            margin: 0; /* Removed top margin */
+            display: inline-block;
+            font-size: 36px; /* Adjusted font size */
+        }
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <h1>👋 Sign Wave</h1>
+    <p><a href="#">Home</a> | <a href="#">Text to Sign Language Translator</a> | <a href="#">Learn ASL</a> | <a href="#">About</a></p>
+</div>
+<div class="main-content">
+    <h2>Hi, this is our Translator</h2>
+    <p>Instantly translate any text into ASL.</p>
+    <input type="text" id="text-input" placeholder="Type to translate...">
+    <button class="button" onclick="getImages()">Translate</button>
+    <div id="image-container"></div>
+<script>
+    function getImages() {
+        var inputText = document.getElementById('text-input').value;
+        var imageContainer = document.getElementById('image-container');
+
+        // Clear previous content
+        imageContainer.innerHTML = '';
+
+        // Request characters, filenames, and images from the server
+        fetch('/get_images/' + inputText)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(images => {
+                // Display images with characters side by side
+                images.forEach(item => {
+                    var containerDiv = document.createElement('div');
+                    containerDiv.style.display = 'inline-block';
+                    containerDiv.style.margin = '5px';
+
+                    var imgElement = document.createElement('img');
+                    imgElement.src = item.filename; // Adjust the path here
+                    imgElement.style.width = '150px'; // Adjust the width as needed
+                    imgElement.style.height = '150px';
+                    imgElement.style.borderRadius = '8px';// Adjust the height as needed
+
+                    var charDiv = document.createElement('div');
+                    charDiv.innerText = item.char;
+
+                    containerDiv.appendChild(imgElement);
+                    containerDiv.appendChild(charDiv);
+
+                    imageContainer.appendChild(containerDiv);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching images:', error);
+            });
+    }
+</script>
+</div>
+</body>
+</html>
