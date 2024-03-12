@@ -13,3 +13,10 @@ This project aims to develop a system for live English text translation to Ameri
 1. Clone the repository:
    `sh
    git clone https://github.com/GeekLuffy/ScreenWave.git
+
+## Future Updates & Deatils
+
+- We faced so much errors and difficulties in this making this project we tried out best to make it better as much as we can in the 24hr period of time.
+But we still have great ideas and ambitions regarding this project.
+- We will add more things in the site and will make it's ui and frotend even better than now.
+
