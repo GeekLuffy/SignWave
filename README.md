@@ -1,6 +1,6 @@
 # ASL Live Text Translation and Learning Project Made By Team Amethyst
 
-This project aims to develop a system for live text translation to American Sign Language (ASL) and provide resources for learning ASL.
+This project aims to develop a system for live English text translation to American Sign Language (ASL) and provide resources for learning ASL.
 
 ## Features
 
