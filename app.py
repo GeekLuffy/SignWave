@@ -9,9 +9,11 @@ app = Flask(__name__, static_folder='dataset')
 with open('mapping.json') as json_file:
     mapping = json.load(json_file)
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 @app.route('/get_images/<input_text>')
 def get_images(input_text):
@@ -34,6 +36,7 @@ def get_images(input_text):
                     images.append({'char': char, 'filename': filename})
 
     return jsonify(images)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
